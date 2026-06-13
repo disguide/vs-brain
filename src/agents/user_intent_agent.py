@@ -23,7 +23,7 @@ class UserIntentDiscoveryAgent(BaseAgent):
         if len(user_input.split()) < 5:
             return "Your request is a bit vague. Could you please provide more details on what you'd like to achieve and what a successful outcome looks like?"
         
-        self.clarified_goal = f"Refined Goal: {user_input}"
+        self.clarified_goal = user_input
         self.success_conditions = ["Accurate data", "Comprehensive coverage", "Structured output"]
         
         return f"I've clarified your goal: {self.clarified_goal}\nSuccess Conditions: {', '.join(self.success_conditions)}"
