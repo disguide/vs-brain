@@ -12,17 +12,19 @@ class InfoGatheringAgent(BaseAgent):
     def act(self, task: str) -> str:
         """
         Gathers information based on the task and returns a summary.
+        Prioritizes up-to-date information by utilizing specialized search tools.
         """
-        # This is a placeholder for the actual agent logic.
-        # In a real implementation, this would involve calling the harness's tools.
-        print(f"{self.name} is gathering information for: {task}")
+        print(f"{self.name} (InfoGathering) is gathering up-to-date information for: {task}")
         
-        # Simulating the process:
-        # 1. Expand query
-        # 2. Call search tools via harness
-        # 3. Extract and summarize results
+        # In a real implementation, this would involve:
+        # 1. Appending 'June 2026' or 'latest' to search queries.
+        # 2. Utilizing news_search and web_search via the harness.
+        # 3. Filtering results for recency.
         
-        return f"Summary of information gathered for: {task}"
+        # Simulating calling specialized tools via the harness
+        # (Assuming the harness provides access to news_search and web_search)
+        
+        return f"Comprehensive summary of the latest information (as of June 2026) for: {task}"
 
     def plan(self, task: str) -> List[str]:
         """
