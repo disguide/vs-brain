@@ -33,23 +33,33 @@ class AgentHarness:
 
         return self.tools[tool_name](*args, **kwargs)
 
-    def run_loop(self, task: str, max_steps: int = 10):
+    def run_loop(self, task: str, max_steps: int = 10) -> str:
         """
         Executes the agentic loop for a given task.
         """
         print(f"Starting agentic loop for task: {task}")
         steps = 0
+        final_response = ""
         while steps < max_steps:
-            # Placeholder for agent action and tool execution logic
-            # 1. Agent proposes an action/tool call
-            # 2. Harness validates and executes the tool
-            # 3. Harness provides the observation back to the agent
-            # 4. Repeat until task is complete or max steps reached
             print(f"Step {steps + 1}...")
-            steps += 1
-            # For now, just simulate a simple action
+            
+            # 1. Agent proposes an action/tool call
+            # In a real implementation, this would involve the LLM
             response = self.agent.act(task)
-            print(f"Agent response: {response}")
+            
+            # 2. Harness processes the response
+            # (Simulating tool execution if the agent proposed it)
+            if "search" in response.lower():
+                # Simulating a tool call proposal from the agent
+                tool_name = "web_search"
+                print(f"Agent proposed tool: {tool_name}")
+                observation = self.execute_tool(tool_name, query=task)
+                print(f"Observation: {observation}")
+                # In a real loop, this observation would be fed back to the agent
+            
+            final_response = response
+            steps += 1
             break # Simple exit for now
 
         print("Agentic loop completed.")
+        return final_response
