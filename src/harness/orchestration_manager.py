@@ -19,7 +19,7 @@ class OrchestrationManager:
         """
         self.specialized_agents[agent_type] = agent
 
-    def run_orchestration(self, main_task: str):
+    def run_orchestration(self, main_task: str, require_verification: bool = False):
         """
         Executes the full orchestration workflow for a complex task.
         """
@@ -47,8 +47,24 @@ class OrchestrationManager:
                 result = specialized_agent.act(sub_task)
                 print(f"Specialized Agent Result: {result}")
                 
-                # 5. Assistant updates state
+                # 5. Conditional Verification
+                # Verification is triggered if explicitly required or if the sub-task involves high-risk info gathering
+                if require_verification or "information" in sub_task.lower():
+                    if "VerificationAgent" in self.specialized_agents:
+                        verifier = self.specialized_agents["VerificationAgent"]
+                        print(f"--- Conditional Activation: {verifier.name} (VerificationAgent) ---")
+                        verification_report = verifier.act(result)
+                        print(f"Verification Result: {verification_report}")
+                        result = f"{result}\n\n[Verification Report]\n{verification_report}"
+                
+                # 6. Assistant updates state
                 self.assistant.update_state(f"step_{step_id}_result", result)
+                
+                # 7. Knowledge Management (Obsidian)
+                if "ObsidianAgent" in self.specialized_agents:
+                    obsidian_agent = self.specialized_agents["ObsidianAgent"]
+                    print(f"Assistant delegating to: {obsidian_agent.name} (ObsidianAgent)")
+                    obsidian_agent.act({"title": f"Step_{step_id}_Result", "content": result})
             else:
                 print(f"Warning: No specialized agent registered for type: {agent_type}")
         
