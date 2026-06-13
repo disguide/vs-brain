@@ -6,13 +6,22 @@ from src.agents.base_agent import BaseAgent
 class OrchestrationManager:
     """
     Manages the multi-agent orchestration workflow within the vs-brain harness.
+    Incorporates Agent-MCP knowledge graph and CrewAI role-based patterns.
     """
 
     def __init__(self, orchestrator: OrchestratorAgent, assistant: AssistantAgent):
         self.orchestrator = orchestrator
         self.assistant = assistant
         self.user_intent_agent = None
+        self.knowledge_graph = {} # Agent-MCP inspired persistent memory
         self.specialized_agents: Dict[str, BaseAgent] = {}
+
+    def update_knowledge_graph(self, key: str, value: Any):
+        """
+        Updates the shared persistent knowledge graph (Agent-MCP pattern).
+        """
+        self.knowledge_graph[key] = value
+        print(f"Knowledge Graph Updated (Agent-MCP): {key}")
 
     def register_user_intent_agent(self, agent: BaseAgent):
         """
