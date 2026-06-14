@@ -1,0 +1,283 @@
+:root {
+  /* Node-type palette */
+  --question: #2563eb; /* blue   */
+  --question-bg: #eff6ff;
+  --position: #475569; /* slate  */
+  --position-bg: #f1f5f9;
+  --support: #16a34a; /* green  */
+  --support-bg: #f0fdf4;
+  --attack: #dc2626; /* red    */
+  --attack-bg: #fef2f2;
+  --value: #b45309; /* amber  */
+  --value-bg: #fffbeb;
+
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --page: #f8fafc;
+
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+/* ---------- Header ---------- */
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: -0.02em;
+}
+.tagline {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  max-width: 56ch;
+}
+
+/* ---------- Legend ---------- */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  align-items: center;
+  margin: 1.25rem 0;
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.legend-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  flex: none;
+}
+.legend-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+.legend-text strong {
+  font-size: 0.82rem;
+}
+.legend-text span {
+  color: var(--muted);
+}
+.legend-badges {
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Tree layout ---------- */
+.tree-children {
+  border-left: 2px solid var(--line);
+  padding-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+.tree-node {
+  margin-top: 0.5rem;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left-width: 5px;
+  border-radius: var(--radius);
+  padding: 0.7rem 0.85rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.15s ease;
+}
+.card[data-clickable="true"]:hover {
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14);
+}
+.card[data-clickable="true"]:active {
+  transform: translateY(1px);
+}
+.card[data-clickable="false"] {
+  cursor: default;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+  flex-wrap: wrap;
+}
+.card-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex: none;
+}
+.card-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.card-chevron {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.card-content {
+  font-size: 0.98rem;
+}
+
+/* Per-type colours: left border, marker swatch, tag tint */
+.card-question {
+  border-left-color: var(--question);
+}
+.card-question .card-marker {
+  background: var(--question-bg);
+  color: var(--question);
+}
+.card-question .card-tag {
+  color: var(--question);
+}
+
+.card-position {
+  border-left-color: var(--position);
+}
+.card-position .card-marker {
+  background: var(--position-bg);
+  color: var(--position);
+}
+
+.card-argument-support {
+  border-left-color: var(--support);
+}
+.card-argument-support .card-marker {
+  background: var(--support-bg);
+  color: var(--support);
+}
+.card-argument-support .card-tag {
+  color: var(--support);
+}
+
+.card-argument-attack {
+  border-left-color: var(--attack);
+}
+.card-argument-attack .card-marker {
+  background: var(--attack-bg);
+  color: var(--attack);
+}
+.card-argument-attack .card-tag {
+  color: var(--attack);
+}
+
+/* Value nodes — the most distinct, "you hit the bottom" treatment */
+.card-value,
+.card-terminal {
+  border: 2px solid var(--value);
+  border-left-width: 5px;
+  background: var(--value-bg);
+}
+.card-value .card-marker {
+  background: var(--value);
+  color: #fff;
+}
+.card-value .card-tag {
+  color: var(--value);
+}
+.card-terminal-note {
+  margin-top: 0.3rem;
+  font-size: 0.74rem;
+  color: var(--value);
+  font-weight: 600;
+}
+
+/* ---------- Badges ---------- */
+.badge {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge-grounded {
+  background: var(--support-bg);
+  color: var(--support);
+  border-color: #bbf7d0;
+}
+.badge-open {
+  background: #fff7ed;
+  color: #c2410c;
+  border-color: #fed7aa;
+}
+.badge-shared {
+  background: #f5f3ff;
+  color: #7c3aed;
+  border-color: #ddd6fe;
+}
+
+/* ---------- Footer ---------- */
+.app-footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 540px) {
+  .app {
+    padding: 1rem 0.75rem 3rem;
+  }
+  .tree-node {
+    margin-left: 0.5rem !important;
+  }
+  .card-content {
+    font-size: 0.94rem;
+  }
+}
